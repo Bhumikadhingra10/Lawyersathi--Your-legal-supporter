@@ -124,6 +124,11 @@ export default function HomeDashboard() {
   const setLocation = useStore(state => state.setLocation);
   const user = useStore(state => state.user);
   const logout = useStore(state => state.logout);
+  const fetchLawyerApplications = useStore(state => state.fetchLawyerApplications);
+
+  useEffect(() => {
+    fetchLawyerApplications();
+  }, [fetchLawyerApplications]);
   
   const [searchQuery, setSearchQuery] = useState('');
   const [cityModalVisible, setCityModalVisible] = useState(false);

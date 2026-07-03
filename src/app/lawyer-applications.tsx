@@ -8,6 +8,11 @@ export default function LawyerApplicationsScreen() {
   const router = useRouter();
   const lawyerApplications = useStore(state => state.lawyerApplications);
   const deleteLawyerApplication = useStore(state => state.deleteLawyerApplication);
+  const fetchLawyerApplications = useStore(state => state.fetchLawyerApplications);
+
+  React.useEffect(() => {
+    fetchLawyerApplications();
+  }, [fetchLawyerApplications]);
 
   const formatDate = (dateStr: string) => {
     try {

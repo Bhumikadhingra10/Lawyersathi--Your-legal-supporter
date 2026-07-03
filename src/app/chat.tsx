@@ -20,6 +20,7 @@ export default function ChatScreen() {
   const chatMessages = useStore(state => state.chatMessages);
   const sendChatMessage = useStore(state => state.sendChatMessage);
   const clearChat = useStore(state => state.clearChat);
+  const fetchChatMessages = useStore(state => state.fetchChatMessages);
 
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -36,11 +37,12 @@ export default function ChatScreen() {
   ];
 
   useEffect(() => {
+    fetchChatMessages();
     // Scroll to end on load
     setTimeout(() => {
       scrollViewRef.current?.scrollToEnd({ animated: true });
     }, 100);
-  }, []);
+  }, [fetchChatMessages]);
 
   const handleSend = () => {
     if (!inputVal.trim()) return;

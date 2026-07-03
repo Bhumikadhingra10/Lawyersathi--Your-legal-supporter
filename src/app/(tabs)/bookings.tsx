@@ -13,8 +13,15 @@ export default function BookingsScreen() {
   const bookings = React.useMemo(() => allBookings.filter(b => b.paymentStatus === 'Paid'), [allBookings]);
   const advanceStatus = useStore(state => state.advanceBookingStatus);
   const upgradeBooking = useStore(state => state.upgradeBooking);
+  const fetchBookings = useStore(state => state.fetchBookings);
   const [showPaymentModal, setShowPaymentModal] = React.useState(false);
   const [activeUpgradeBooking, setActiveUpgradeBooking] = React.useState<any | null>(null);
+
+  React.useEffect(() => {
+    if (user?.uid) {
+      fetchBookings(user.uid);
+    }
+  }, [user?.uid, fetchBookings]);
 
   const handleUpgrade = (bookingId: string) => {
     if (!user) return;
