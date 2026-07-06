@@ -749,7 +749,7 @@ export default function HomeDashboard() {
                 minimumScaleFactor={0.5}
                 style={{ 
                   color: '#5C4033', 
-                  fontSize: windowWidth < 380 ? 12 : (Platform.OS === 'web' ? 20 : 15), 
+                  fontSize: windowWidth < 380 ? 10.5 : (Platform.OS === 'web' ? 20 : 14), 
                   fontWeight: '900',
                   letterSpacing: 0.5,
                   marginBottom: 6,
