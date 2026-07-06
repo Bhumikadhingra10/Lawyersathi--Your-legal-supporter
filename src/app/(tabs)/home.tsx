@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput, TouchableOpacity, Modal, StyleSheet, Dimensions, Platform, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, Modal, StyleSheet, Dimensions, Platform, ActivityIndicator, useWindowDimensions } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import * as Location from 'expo-location';
@@ -120,6 +120,7 @@ const SDM_OFFICES = [
 
 export default function HomeDashboard() {
   const router = useRouter();
+  const { width: windowWidth } = useWindowDimensions();
   const selectedLocation = useStore(state => state.selectedLocation);
   const setLocation = useStore(state => state.setLocation);
   const user = useStore(state => state.user);
@@ -723,15 +724,15 @@ export default function HomeDashboard() {
             <View 
               style={{ 
                 flex: 1, 
-                paddingLeft: 24, 
-                paddingRight: Platform.OS === 'web' ? 260 : 180,
+                paddingLeft: windowWidth < 380 ? 16 : 24, 
+                paddingRight: windowWidth < 380 ? 115 : (Platform.OS === 'web' ? 260 : 180),
                 justifyContent: 'center'
               }}
             >
               <Text 
                 style={{ 
                   color: '#5C4033', 
-                  fontSize: Platform.OS === 'web' ? 20 : 15, 
+                  fontSize: windowWidth < 380 ? 13 : (Platform.OS === 'web' ? 20 : 15), 
                   fontWeight: '900',
                   letterSpacing: 0.5,
                   marginBottom: 6,
@@ -743,9 +744,9 @@ export default function HomeDashboard() {
               <Text 
                 style={{ 
                   color: '#6e5d53', 
-                  fontSize: Platform.OS === 'web' ? 12 : 10, 
+                  fontSize: windowWidth < 380 ? 9 : (Platform.OS === 'web' ? 12 : 10), 
                   fontWeight: '700',
-                  lineHeight: Platform.OS === 'web' ? 16 : 14,
+                  lineHeight: windowWidth < 380 ? 12 : (Platform.OS === 'web' ? 16 : 14),
                   fontFamily: bodyFont
                 }}
               >
@@ -758,8 +759,8 @@ export default function HomeDashboard() {
               source={require('../../../assets/images/rings_only_banner.png')}
               style={{ 
                 position: 'absolute',
-                right: Platform.OS === 'web' ? 100 : 70,
-                width: Platform.OS === 'web' ? 125 : 107,
+                right: windowWidth < 380 ? 45 : (Platform.OS === 'web' ? 100 : 70),
+                width: windowWidth < 380 ? 70 : (Platform.OS === 'web' ? 125 : 107),
                 height: '100%'
               }}
               contentFit="contain"
@@ -771,7 +772,7 @@ export default function HomeDashboard() {
               style={{ 
                 position: 'absolute',
                 right: 0,
-                width: Platform.OS === 'web' ? 105 : 90,
+                width: windowWidth < 380 ? 60 : (Platform.OS === 'web' ? 105 : 90),
                 height: '100%'
               }}
               contentFit="contain"
