@@ -738,7 +738,7 @@ export default function HomeDashboard() {
               style={{ 
                 flex: 1, 
                 paddingLeft: windowWidth < 380 ? 16 : 24, 
-                paddingRight: windowWidth < 380 ? 140 : (Platform.OS === 'web' ? 200 : 180),
+                paddingRight: windowWidth < 380 ? 130 : (Platform.OS === 'web' ? 200 : 180),
                 justifyContent: 'center',
                 zIndex: 10
               }}
@@ -746,10 +746,10 @@ export default function HomeDashboard() {
               <Text 
                 numberOfLines={1}
                 adjustsFontSizeToFit={true}
-                minimumScaleFactor={0.7}
+                minimumScaleFactor={0.5}
                 style={{ 
                   color: '#5C4033', 
-                  fontSize: windowWidth < 380 ? 13 : (Platform.OS === 'web' ? 20 : 15), 
+                  fontSize: windowWidth < 380 ? 12 : (Platform.OS === 'web' ? 20 : 15), 
                   fontWeight: '900',
                   letterSpacing: 0.5,
                   marginBottom: 6,
