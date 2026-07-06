@@ -725,7 +725,7 @@ export default function HomeDashboard() {
               style={{ 
                 flex: 1, 
                 paddingLeft: windowWidth < 380 ? 16 : 24, 
-                paddingRight: windowWidth < 380 ? 145 : (Platform.OS === 'web' ? 260 : 180),
+                paddingRight: windowWidth < 380 ? 150 : (Platform.OS === 'web' ? 300 : 210),
                 justifyContent: 'center'
               }}
             >
@@ -762,8 +762,8 @@ export default function HomeDashboard() {
               source={require('../../../assets/images/rings_only_banner.png')}
               style={{ 
                 position: 'absolute',
-                right: Platform.OS === 'web' ? 100 : 70,
-                width: Platform.OS === 'web' ? 125 : 107,
+                right: Platform.OS === 'web' ? 110 : 80,
+                width: Platform.OS === 'web' ? 165 : 140,
                 height: '100%'
               }}
               contentFit="contain"
@@ -775,7 +775,7 @@ export default function HomeDashboard() {
               style={{ 
                 position: 'absolute',
                 right: 0,
-                width: Platform.OS === 'web' ? 105 : 90,
+                width: Platform.OS === 'web' ? 140 : 120,
                 height: '100%'
               }}
               contentFit="contain"
