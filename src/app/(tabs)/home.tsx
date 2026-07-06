@@ -720,13 +720,39 @@ export default function HomeDashboard() {
               height: Platform.OS === 'web' ? 140 : 120
             }}
           >
-            {/* Programmatic details text on the left */}
+            {/* Flowers on the extreme right */}
+            <Image
+              source={require('../../../assets/images/flowers_only_banner.png')}
+              style={{ 
+                position: 'absolute',
+                right: 0,
+                width: windowWidth < 380 ? 90 : (Platform.OS === 'web' ? 140 : 120),
+                height: '100%'
+              }}
+              contentFit="contain"
+            />
+
+            {/* Intertwined golden rings in the middle-right */}
+            <Image
+              source={require('../../../assets/images/rings_only_banner.png')}
+              style={{ 
+                position: 'absolute',
+                right: windowWidth < 380 ? 55 : (Platform.OS === 'web' ? 110 : 80),
+                width: windowWidth < 380 ? 100 : (Platform.OS === 'web' ? 165 : 140),
+                height: '100%',
+                opacity: windowWidth < 380 ? 0.35 : 1
+              }}
+              contentFit="contain"
+            />
+
+            {/* Programmatic details text on the left (Renders on top of images) */}
             <View 
               style={{ 
                 flex: 1, 
                 paddingLeft: windowWidth < 380 ? 16 : 24, 
-                paddingRight: windowWidth < 380 ? 150 : (Platform.OS === 'web' ? 300 : 210),
-                justifyContent: 'center'
+                paddingRight: windowWidth < 380 ? 100 : (Platform.OS === 'web' ? 280 : 190),
+                justifyContent: 'center',
+                zIndex: 10
               }}
             >
               <Text 
@@ -756,30 +782,6 @@ export default function HomeDashboard() {
                 Register your marriage at your choice.
               </Text>
             </View>
-
-            {/* Intertwined golden rings in the middle-right */}
-            <Image
-              source={require('../../../assets/images/rings_only_banner.png')}
-              style={{ 
-                position: 'absolute',
-                right: Platform.OS === 'web' ? 110 : 80,
-                width: Platform.OS === 'web' ? 165 : 140,
-                height: '100%'
-              }}
-              contentFit="contain"
-            />
-
-            {/* Flowers on the extreme right */}
-            <Image
-              source={require('../../../assets/images/flowers_only_banner.png')}
-              style={{ 
-                position: 'absolute',
-                right: 0,
-                width: Platform.OS === 'web' ? 140 : 120,
-                height: '100%'
-              }}
-              contentFit="contain"
-            />
           </TouchableOpacity>
         </View>
 
