@@ -745,6 +745,7 @@ export default function HomeDashboard() {
             >
               <Text 
                 numberOfLines={1}
+                allowFontScaling={false}
                 adjustsFontSizeToFit={true}
                 minimumScaleFactor={0.5}
                 style={{ 
@@ -759,6 +760,7 @@ export default function HomeDashboard() {
                 MARRIAGE REGISTRATION
               </Text>
               <Text 
+                allowFontScaling={false}
                 style={{ 
                   color: '#6e5d53', 
                   fontSize: windowWidth < 380 ? 9 : (Platform.OS === 'web' ? 12 : 10), 
