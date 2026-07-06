@@ -726,8 +726,9 @@ export default function HomeDashboard() {
               style={{ 
                 position: 'absolute',
                 right: 0,
-                width: windowWidth < 380 ? 110 : (Platform.OS === 'web' ? 160 : 140),
-                height: '100%'
+                width: windowWidth < 380 ? 130 : (Platform.OS === 'web' ? 185 : 165),
+                height: windowWidth < 380 ? 150 : (Platform.OS === 'web' ? 185 : 165),
+                top: windowWidth < 380 ? -15 : (Platform.OS === 'web' ? -22 : -22)
               }}
               contentFit="cover"
             />
@@ -737,7 +738,7 @@ export default function HomeDashboard() {
               style={{ 
                 flex: 1, 
                 paddingLeft: windowWidth < 380 ? 16 : 24, 
-                paddingRight: windowWidth < 380 ? 120 : (Platform.OS === 'web' ? 170 : 150),
+                paddingRight: windowWidth < 380 ? 140 : (Platform.OS === 'web' ? 200 : 180),
                 justifyContent: 'center',
                 zIndex: 10
               }}
