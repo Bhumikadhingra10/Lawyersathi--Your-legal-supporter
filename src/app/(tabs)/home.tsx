@@ -730,6 +730,9 @@ export default function HomeDashboard() {
               }}
             >
               <Text 
+                numberOfLines={1}
+                adjustsFontSizeToFit={true}
+                minimumScaleFactor={0.7}
                 style={{ 
                   color: '#5C4033', 
                   fontSize: windowWidth < 380 ? 13 : (Platform.OS === 'web' ? 20 : 15), 
