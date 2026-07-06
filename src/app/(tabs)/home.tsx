@@ -732,25 +732,12 @@ export default function HomeDashboard() {
               contentFit="contain"
             />
 
-            {/* Intertwined golden rings in the middle-right */}
-            <Image
-              source={require('../../../assets/images/rings_only_banner.png')}
-              style={{ 
-                position: 'absolute',
-                right: windowWidth < 380 ? 55 : (Platform.OS === 'web' ? 110 : 80),
-                width: windowWidth < 380 ? 100 : (Platform.OS === 'web' ? 165 : 140),
-                height: '100%',
-                opacity: windowWidth < 380 ? 0.35 : 1
-              }}
-              contentFit="contain"
-            />
-
-            {/* Programmatic details text on the left (Renders on top of images) */}
+            {/* Programmatic details text on the left */}
             <View 
               style={{ 
                 flex: 1, 
                 paddingLeft: windowWidth < 380 ? 16 : 24, 
-                paddingRight: windowWidth < 380 ? 100 : (Platform.OS === 'web' ? 280 : 190),
+                paddingRight: windowWidth < 380 ? 100 : (Platform.OS === 'web' ? 150 : 130),
                 justifyContent: 'center',
                 zIndex: 10
               }}
