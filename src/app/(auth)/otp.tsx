@@ -142,7 +142,7 @@ export default function OTPScreen() {
 
         {/* Resend and Actions */}
         <View className="flex-row justify-between items-center mb-6 px-1">
-          <Text className="text-gray-500 text-xs font-medium">{"Didn't receive code?"}</Text>
+          <Text className="text-gray-505 text-xs font-medium">{"Didn't receive code?"}</Text>
           <TouchableOpacity onPress={handleResendSMS}>
             <Text className="text-gold font-bold text-xs">Resend Verification Code</Text>
           </TouchableOpacity>

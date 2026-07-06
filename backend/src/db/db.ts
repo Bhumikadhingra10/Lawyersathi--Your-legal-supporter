@@ -1,70 +1,49 @@
-import sqlite3 from 'sqlite3';
-import path from 'path';
-import fs from 'fs';
+import { Pool } from 'pg';
 
-const getDbPath = () => {
-  if (process.env.DATABASE_URL) {
-    if (path.isAbsolute(process.env.DATABASE_URL)) {
-      return process.env.DATABASE_URL;
-    }
-    return path.resolve(__dirname, '../../', process.env.DATABASE_URL);
-  }
-  return path.resolve(__dirname, '../../data/database.sqlite');
-};
-const DB_PATH = getDbPath();
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/lawyersathi';
+const pool = new Pool({
+  connectionString,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
-// Ensure database directory exists
-const dbDir = path.dirname(DB_PATH);
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
-// Connect to SQLite Database
-const db = new sqlite3.Database(DB_PATH, (err) => {
+// Test connection and log database connection info
+pool.connect((err, client, release) => {
   if (err) {
-    console.error('Error connecting to database:', err.message);
+    console.error('Error connecting to PostgreSQL database:', err.message);
   } else {
-    console.log('Connected to SQLite database at:', DB_PATH);
+    console.log('Connected to PostgreSQL database successfully');
+    release();
   }
 });
 
-// Helper to run query with Promise
-export const dbRun = (sql: string, params: any[] = []): Promise<{ id: number | string; changes: number }> => {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, function (err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ id: this.lastID, changes: this.changes });
-      }
-    });
-  });
+// Helper to translate sqlite placeholder '?' to postgres '$1', '$2', etc.
+function convertSqliteToPg(sql: string): string {
+  let paramIndex = 1;
+  return sql.replace(/\?/g, () => `$${paramIndex++}`);
+}
+
+// Helper to run query with Promise (INSERT, UPDATE, DELETE)
+export const dbRun = async (sql: string, params: any[] = []): Promise<{ id: number | string; changes: number }> => {
+  const convertedSql = convertSqliteToPg(sql);
+  const result = await pool.query(convertedSql, params);
+  return { id: '', changes: result.rowCount || 0 };
 };
 
 // Helper to query all records with Promise
-export const dbAll = <T>(sql: string, params: any[] = []): Promise<T[]> => {
-  return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows as T[]);
-      }
-    });
-  });
+export const dbAll = async <T>(sql: string, params: any[] = []): Promise<T[]> => {
+  const convertedSql = convertSqliteToPg(sql);
+  const result = await pool.query(convertedSql, params);
+  return result.rows as T[];
 };
 
 // Helper to query a single record with Promise
-export const dbGet = <T>(sql: string, params: any[] = []): Promise<T | null> => {
-  return new Promise((resolve, reject) => {
-    db.get(sql, params, (err, row) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve((row as T) || null);
-      }
-    });
-  });
+export const dbGet = async <T>(sql: string, params: any[] = []): Promise<T | null> => {
+  const convertedSql = convertSqliteToPg(sql);
+  const result = await pool.query(convertedSql, params);
+  if (result.rows.length === 0) {
+    return null;
+  }
+  return result.rows[0] as T;
 };
 
 // Initialize Tables
@@ -143,12 +122,11 @@ export const initDb = async () => {
         created_at TEXT NOT NULL
       )
     `);
-
-    console.log('Database tables initialized successfully');
+    console.log('PostgreSQL database tables initialized successfully');
   } catch (err) {
-    console.error('Failed to initialize database tables:', err);
+    console.error('Failed to initialize PostgreSQL database tables:', err);
     throw err;
   }
 };
 
-export default db;
+export default pool;
