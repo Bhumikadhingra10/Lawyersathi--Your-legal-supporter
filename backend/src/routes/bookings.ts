@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -208,7 +208,7 @@ router.post('/:id/upgrade', async (req, res) => {
 
 // POST /api/bookings/:id/advance
 // Progress the stage status of a booking (helper for workflow progression testing)
-router.post('/:id/advance', async (req, res) => {
+router.post('/:id/advance', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const stages = [
@@ -266,7 +266,7 @@ router.post('/:id/advance', async (req, res) => {
 
 // POST /api/bookings/:id/document
 // Uploads a document attachment (using Multer middleware)
-router.post('/:id/document', upload.single('file'), async (req, res) => {
+router.post('/:id/document', upload.single('file'), async (req: Request, res: Response) => {
   const { id } = req.params;
   const { type, name } = req.body;
 
